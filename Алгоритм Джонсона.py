@@ -12,12 +12,11 @@ def bellman_ford(lists, start):
 
 def johnson(lists):
     n = len(lists)
+    
     lists.append([])  # Добавляем новую вершину s
 
     # Соединяем новую вершину с каждой из существующих с весом 0
-    for i in range(n):
-        lists[i].append((n, 0))  # Ребра от вершины i к s 
-    lists[n] = [(i, 0) for i in range(n)]  # Ребра от s ко всем 
+    lists[n] = [(i, 0) for i in range(n)]  
 
     # Запускаем алгоритм Беллмана-Форда для поиска потенциалов
     f = bellman_ford(lists, n)
@@ -65,3 +64,17 @@ for _ in range(m):
 distances = johnson(lists)
 for d in distances:
     print(*d)
+
+
+# для ввода 4 5
+# 0 1 -1
+# 0 2 4
+# 1 2 3
+# 1 3 2
+# 3 1 -2
+# 0 -1 2 1
+#  ответ
+# 0 -1 2 1
+# inf 0 3 2
+# inf inf 0 inf
+# inf -2 1 0
