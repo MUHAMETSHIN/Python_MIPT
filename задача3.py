@@ -5,6 +5,8 @@ G = {}
 
 for i in range(M):
     v1,v2,w = input().split()
+    if i  == 0:
+        starting = v1
     w = float(w)
     if w < 0:
         w = math.log(float(-w))#считаем что курса который обнуляет не существует
@@ -16,7 +18,23 @@ for i in range(M):
         G[v1][v2] = w
     else:
         G[v1] = {v2:w}
-    
+
+visited = set()
+component = []
+
+def dfs(vertex, graph, visited, component):
+    visited.add(vertex)
+    component.append(vertex)
+
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            dfs(neighbor, graph, visited, component)
+dfs(starting, G, visited, component)
+
+new_Graph = {i:G[i] for i in component if i in G}
+
+
+
 def floyd_warshall(G):
     d = {i:{j:float('inf') for j in G} for i in G}
     for i in G:
@@ -33,4 +51,4 @@ def floyd_warshall(G):
             return 'found'
     return 'not found'
     
-print(floyd_warshall(G))
+print(floyd_warshall(new_Graph))
