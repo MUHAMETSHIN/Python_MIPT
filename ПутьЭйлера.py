@@ -19,6 +19,8 @@ for i in range(n):
     if degs[i]%2 != 0:
         count += 1
         special.append(i)
+if count == 0:
+    special.append(ver)
 def dfss(u, components):
     visiteds[u] = True
     components.append(u)
@@ -30,7 +32,7 @@ components = []
 dfss(ver, components)
 
 #поиск этого пути:
-if count == 2 and len(components) == n:
+if ((count == 2) or (count == 0)) and len(components) == n:
     answer = []
     def way(cur):
         while lists[cur]:
